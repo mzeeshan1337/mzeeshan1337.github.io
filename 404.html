@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>404 - Access Denied</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Fira+Code:wght@300;400;500&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Fira Code', monospace;
+            background: #0a0a0a;
+            color: #00ff41;
+            overflow-x: hidden;
+            position: relative;
+            min-height: 100vh;
+        }
+
+        .matrix-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+            opacity: 0.1;
+        }
+
+        .container {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .glitch-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                repeating-linear-gradient(
+                    90deg,
+                    transparent,
+                    transparent 2px,
+                    rgba(0, 255, 65, 0.03) 2px,
+                    rgba(0, 255, 65, 0.03) 4px
+                );
+            pointer-events: none;
+            z-index: 2;
+            animation: scanlines 2s linear infinite;
+        }
+
+        .terminal-window {
+            background: rgba(0, 0, 0, 0.9);
+            border: 2px solid #00ff41;
+            border-radius: 8px;
+            padding: 30px;
+            max-width: 800px;
+            width: 100%;
+            box-shadow: 
+                0 0 50px rgba(0, 255, 65, 0.3),
+                inset 0 0 20px rgba(0, 255, 65, 0.1);
+            animation: terminal-glow 3s ease-in-out infinite alternate;
+        }
+
+        .terminal-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 30px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid rgba(0, 255, 65, 0.3);
+        }
+
+        .terminal-dots {
+            display: flex;
+            gap: 8px;
+        }
+
+        .dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        .dot.red { background: #ff5555; }
+        .dot.yellow { background: #ffb86c; }
+        .dot.green { background: #50fa7b; }
+
+        .terminal-title {
+            margin-left: 15px;
+            font-size: 14px;
+            color: #8be9fd;
+        }
+
+        .error-code {
+            font-family: 'Orbitron', monospace;
+            font-size: clamp(4rem, 15vw, 12rem);
+            font-weight: 900;
+            text-align: center;
+            margin: 30px 0;
+            background: linear-gradient(45deg, #00ff41, #00d4ff, #ff0080);
+            background-size: 200% 200%;
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: gradient-shift 3s ease-in-out infinite, glitch 4s infinite;
+            text-shadow: 0 0 30px rgba(0, 255, 65, 0.5);
+            position: relative;
+        }
+
+        .error-message {
+            text-align: center;
+            font-size: 18px;
+            margin: 30px 0;
+            line-height: 1.6;
+        }
+
+        .typing-text {
+            border-right: 2px solid #00ff41;
+            animation: typing 4s steps(40) infinite, blink 1s infinite;
+            white-space: nowrap;
+            overflow: hidden;
+            display: inline-block;
+        }
+
+        .command-line {
+            background: rgba(0, 255, 65, 0.1);
+            padding: 15px;
+            border-radius: 5px;
+            font-family: 'Fira Code', monospace;
+            font-size: 14px;
+            margin: 30px 0;
+            border-left: 4px solid #00ff41;
+        }
+
+        .command-line::before {
+            content: "$ ";
+            color: #ff79c6;
+            font-weight: bold;
+        }
+
+        .actions {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 40px;
+        }
+
+        .btn {
+            background: transparent;
+            color: #00ff41;
+            border: 2px solid #00ff41;
+            padding: 12px 30px;
+            font-family: 'Fira Code', monospace;
+            font-size: 16px;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn:hover {
+            background: #00ff41;
+            color: #000;
+            box-shadow: 0 0 20px rgba(0, 255, 65, 0.6);
+            transform: translateY(-2px);
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.5s;
+        }
+
+        .btn:hover::before {
+            left: 100%;
+        }
+
+        .system-info {
+            margin-top: 30px;
+            padding: 20px;
+            background: rgba(0, 255, 65, 0.05);
+            border-radius: 5px;
+            font-size: 12px;
+            line-height: 1.8;
+            color: #8be9fd;
+        }
+
+        .ascii-art {
+            font-family: 'Fira Code', monospace;
+            font-size: 10px;
+            line-height: 1;
+            color: #50fa7b;
+            margin: 20px 0;
+            text-align: center;
+            opacity: 0.7;
+        }
+
+        @keyframes terminal-glow {
+            0%, 100% { box-shadow: 0 0 50px rgba(0, 255, 65, 0.3), inset 0 0 20px rgba(0, 255, 65, 0.1); }
+            50% { box-shadow: 0 0 80px rgba(0, 255, 65, 0.5), inset 0 0 30px rgba(0, 255, 65, 0.2); }
+        }
+
+        @keyframes gradient-shift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        @keyframes glitch {
+            0%, 90%, 100% { transform: translate(0); }
+            10% { transform: translate(-2px, 2px); }
+            20% { transform: translate(2px, -2px); }
+            30% { transform: translate(-2px, 2px); }
+            40% { transform: translate(2px, -2px); }
+            50% { transform: translate(-2px, 2px); }
+            60% { transform: translate(2px, -2px); }
+            70% { transform: translate(-2px, 2px); }
+            80% { transform: translate(2px, -2px); }
+        }
+
+        @keyframes typing {
+            0%, 50% { width: 0; }
+            100% { width: 100%; }
+        }
+
+        @keyframes blink {
+            0%, 50% { border-color: transparent; }
+            51%, 100% { border-color: #00ff41; }
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        @keyframes scanlines {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100vw); }
+        }
+
+        @keyframes matrix-fall {
+            0% { transform: translateY(-100vh); opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { transform: translateY(100vh); opacity: 0; }
+        }
+
+        .matrix-char {
+            position: absolute;
+            color: #00ff41;
+            font-family: 'Fira Code', monospace;
+            font-size: 14px;
+            animation: matrix-fall linear infinite;
+            opacity: 0.1;
+        }
+
+        @media (max-width: 768px) {
+            .terminal-window {
+                margin: 10px;
+                padding: 20px;
+            }
+            
+            .actions {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .btn {
+                width: 200px;
+                text-align: center;
+            }
+            
+            .error-message {
+                font-size: 16px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="matrix-bg" id="matrixBg"></div>
+    <div class="glitch-overlay"></div>
+    
+    <div class="container">
+        <div class="terminal-window">
+            <div class="terminal-header">
+                <div class="terminal-dots">
+                    <div class="dot red"></div>
+                    <div class="dot yellow"></div>
+                    <div class="dot green"></div>
+                </div>
+                <div class="terminal-title">SYSTEM_ERROR.exe</div>
+            </div>
+
+            <div class="ascii-art">
+    ██╗  ██╗ ██████╗ ██╗  ██╗
+    ██║  ██║██╔═══██╗██║  ██║
+    ███████║██║   ██║███████║
+    ╚════██║██║   ██║╚════██║
+         ██║╚██████╔╝     ██║
+         ╚═╝ ╚═════╝      ╚═╝
+            </div>
+
+            <div class="error-code">404</div>
+            
+            <div class="error-message">
+                <div class="typing-text">ACCESS_DENIED: Resource not found in database...</div>
+            </div>
+
+            <div class="command-line">
+                ERROR: The requested resource has been moved or deleted<br>
+                STATUS: Connection terminated<br>
+                TRACE: /var/log/error.404
+            </div>
+
+            <div class="system-info">
+                <strong>SYSTEM STATUS:</strong><br>
+                ▸ Security protocols: ACTIVE<br>
+                ▸ Firewall status: ENABLED<br>
+                ▸ Last scan: <span id="timestamp"></span><br>
+                ▸ Threat level: MINIMAL<br>
+                ▸ Connection: SECURE
+            </div>
+
+            <div class="actions">
+                <a href="/" class="btn">RETURN_HOME</a>
+                <a href="javascript:history.back()" class="btn">GO_BACK</a>
+                <a href="#" class="btn" onclick="location.reload()">RETRY_CONNECTION</a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Matrix rain effect
+        function createMatrixRain() {
+            const container = document.getElementById('matrixBg');
+            const chars = '01アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワヲン';
+            
+            for (let i = 0; i < 50; i++) {
+                const char = document.createElement('div');
+                char.className = 'matrix-char';
+                char.textContent = chars[Math.floor(Math.random() * chars.length)];
+                char.style.left = Math.random() * 100 + 'vw';
+                char.style.animationDelay = Math.random() * 5 + 's';
+                char.style.animationDuration = (Math.random() * 3 + 2) + 's';
+                container.appendChild(char);
+            }
+        }
+
+        // Update timestamp
+        function updateTimestamp() {
+            const now = new Date();
+            const timestamp = now.toISOString().replace('T', ' ').substr(0, 19);
+            document.getElementById('timestamp').textContent = timestamp;
+        }
+
+        // Glitch effect for 404
+        function addGlitchEffect() {
+            const errorCode = document.querySelector('.error-code');
+            setInterval(() => {
+                if (Math.random() < 0.1) {
+                    errorCode.style.textShadow = `
+                        ${Math.random() * 10 - 5}px ${Math.random() * 10 - 5}px 0 #ff0080,
+                        ${Math.random() * 10 - 5}px ${Math.random() * 10 - 5}px 0 #00d4ff
+                    `;
+                    setTimeout(() => {
+                        errorCode.style.textShadow = '0 0 30px rgba(0, 255, 65, 0.5)';
+                    }, 100);
+                }
+            }, 200);
+        }
+
+        // Typing animation
+        function typeWriter() {
+            const text = 'ACCESS_DENIED: Resource not found in database...';
+            const element = document.querySelector('.typing-text');
+            let i = 0;
+            
+            function type() {
+                if (i < text.length) {
+                    element.textContent = text.substring(0, i + 1);
+                    i++;
+                    setTimeout(type, 100);
+                } else {
+                    setTimeout(() => {
+                        element.textContent = '';
+                        i = 0;
+                        type();
+                    }, 3000);
+                }
+            }
+            type();
+        }
+
+        // Initialize effects
+        document.addEventListener('DOMContentLoaded', function() {
+            createMatrixRain();
+            updateTimestamp();
+            addGlitchEffect();
+            typeWriter();
+            
+            setInterval(updateTimestamp, 1000);
+        });
+
+        // Keyboard shortcuts
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                history.back();
+            } else if (e.key === 'Enter') {
+                window.location.href = '/';
+            }
+        });
+    </script>
+</body>
+</html>
