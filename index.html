@@ -1,0 +1,1230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zeeshan - Cybersecurity Expert | zeeshan.id</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #0a0a0f, #1a1a2e, #16213e, #0f3460);
+            color: #ffffff;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header */
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(10, 10, 15, 0.95);
+            backdrop-filter: blur(15px);
+            z-index: 1000;
+            padding: 1rem 0;
+            border-bottom: 2px solid #00ff41;
+            box-shadow: 0 2px 20px rgba(0, 255, 65, 0.1);
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: #00ff41;
+            text-decoration: none;
+            text-shadow: 0 0 10px #00ff41;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2.5rem;
+        }
+
+        .nav-links a {
+            color: #ffffff;
+            text-decoration: none;
+            transition: all 0.3s;
+            position: relative;
+            font-weight: 500;
+        }
+
+        .nav-links a:hover {
+            color: #00ff41;
+            text-shadow: 0 0 5px #00ff41;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: #00ff41;
+            transition: width 0.3s;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        /* Mobile menu toggle */
+        .menu-toggle {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+        }
+
+        .menu-toggle span {
+            width: 25px;
+            height: 3px;
+            background: #00ff41;
+            margin: 3px 0;
+            transition: 0.3s;
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grid" width="10" height="10" patternUnits="userSpaceOnUse"><path d="M 10 0 L 0 0 0 10" fill="none" stroke="%2300ff41" stroke-width="0.3" opacity="0.1"/></pattern></defs><rect width="100" height="100" fill="url(%23grid)"/></svg>');
+            z-index: -1;
+        }
+
+        .hero-content h1 {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(45deg, #00ff41, #00d4aa, #0066ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: glow 3s ease-in-out infinite alternate;
+            font-weight: 900;
+            letter-spacing: 3px;
+        }
+
+        @keyframes glow {
+            from { filter: drop-shadow(0 0 20px #00ff41); }
+            to { filter: drop-shadow(0 0 40px #00d4aa); }
+        }
+
+        .hero-content .subtitle {
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+            color: #00ff41;
+            font-weight: 600;
+        }
+
+        .hero-content p {
+            font-size: 1.3rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+        }
+
+        .typing-text {
+            color: #00ff41;
+            border-right: 2px solid #00ff41;
+            animation: typing 3s steps(50) infinite;
+        }
+
+        @keyframes typing {
+            0%, 50% { border-color: transparent; }
+            51%, 100% { border-color: #00ff41; }
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 1.5rem;
+            justify-content: center;
+            margin-top: 2rem;
+        }
+
+        .cta-button {
+            padding: 1rem 2rem;
+            background: linear-gradient(45deg, #00ff41, #00d4aa);
+            color: #000;
+            text-decoration: none;
+            border-radius: 30px;
+            font-weight: bold;
+            transition: all 0.3s;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(0, 255, 65, 0.3);
+        }
+
+        .cta-button.secondary {
+            background: transparent;
+            border: 2px solid #00ff41;
+            color: #00ff41;
+        }
+
+        /* Section Styles */
+        .section {
+            padding: 6rem 0;
+            position: relative;
+        }
+
+        .section h2 {
+            text-align: center;
+            font-size: 3rem;
+            margin-bottom: 4rem;
+            color: #00ff41;
+            text-shadow: 0 0 20px rgba(0, 255, 65, 0.3);
+            position: relative;
+        }
+
+        .section h2::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 3px;
+            background: linear-gradient(90deg, transparent, #00ff41, transparent);
+        }
+
+        /* About Section */
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .profile-section {
+            text-align: center;
+        }
+
+        .profile-placeholder {
+            width: 280px;
+            height: 280px;
+            border-radius: 50%;
+            border: 3px solid #00ff41;
+            background: linear-gradient(135deg, rgba(0, 255, 65, 0.1), rgba(0, 212, 170, 0.1));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 2rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .profile-placeholder::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: conic-gradient(from 0deg, transparent, #00ff41, transparent);
+            animation: rotate 3s linear infinite;
+            z-index: -1;
+        }
+
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        .profile-placeholder i {
+            font-size: 6rem;
+            color: #00ff41;
+            text-shadow: 0 0 30px rgba(0, 255, 65, 0.5);
+        }
+
+        .status-indicator {
+            background: rgba(0, 255, 65, 0.2);
+            padding: 0.8rem 1.5rem;
+            border-radius: 25px;
+            border: 1px solid #00ff41;
+            font-size: 0.9rem;
+            margin-top: 1rem;
+            display: inline-block;
+        }
+
+        /* Tools Section */
+        .tools-categories {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 3rem;
+            margin-top: 4rem;
+        }
+
+        .tool-category {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(15px);
+            border-radius: 20px;
+            padding: 2rem;
+            border: 1px solid rgba(0, 255, 65, 0.2);
+        }
+
+        .tool-category h3 {
+            color: #00ff41;
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+
+        .tool-list {
+            display: grid;
+            gap: 1rem;
+        }
+
+        .tool-item {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 1rem;
+            border-radius: 10px;
+            border-left: 3px solid #00ff41;
+            transition: all 0.3s;
+        }
+
+        .tool-item:hover {
+            background: rgba(255, 255, 255, 0.1);
+            transform: translateX(5px);
+        }
+
+        .tool-item i {
+            color: #00ff41;
+            margin-right: 0.8rem;
+            font-size: 1.2rem;
+        }
+
+        /* Hall of Fame Section Enhanced */
+        .hof-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2.5rem;
+            margin-top: 4rem;
+        }
+
+        .hof-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(15px);
+            border-radius: 20px;
+            padding: 2.5rem;
+            text-align: center;
+            border: 1px solid rgba(0, 255, 65, 0.3);
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hof-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(0, 255, 65, 0.1), transparent);
+            transition: left 0.5s;
+        }
+
+        .hof-card:hover::before {
+            left: 100%;
+        }
+
+        .hof-card:hover {
+            transform: translateY(-10px);
+            border-color: #00ff41;
+            box-shadow: 0 20px 50px rgba(0, 255, 65, 0.2);
+        }
+
+        .hof-logo {
+            width: 90px;
+            height: 90px;
+            margin: 0 auto 1.5rem;
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+            font-weight: bold;
+            position: relative;
+            z-index: 1;
+        }
+
+        .vulnerability-details {
+            background: rgba(0, 255, 65, 0.1);
+            border-radius: 10px;
+            padding: 1rem;
+            margin-top: 1rem;
+            text-align: left;
+        }
+
+        .vulnerability-details h5 {
+            color: #00ff41;
+            margin-bottom: 0.5rem;
+            font-size: 0.9rem;
+        }
+
+        .vulnerability-details ul {
+            list-style: none;
+            font-size: 0.85rem;
+            opacity: 0.9;
+        }
+
+        .vulnerability-details li {
+            padding: 0.2rem 0;
+            border-left: 2px solid #00ff41;
+            padding-left: 0.8rem;
+            margin: 0.3rem 0;
+        }
+
+        .severity-badge {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            padding: 0.3rem 0.8rem;
+            border-radius: 15px;
+            font-size: 0.75rem;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+
+        .critical { background: #ff4757; color: white; }
+        .high { background: #ff6b35; color: white; }
+        .medium { background: #f39c12; color: white; }
+
+        /* Bug Bounty Techniques Section */
+        .bounty-techniques {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .technique-card {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 2rem;
+            border-radius: 15px;
+            border-left: 4px solid #00ff41;
+            transition: all 0.3s;
+        }
+
+        .technique-card:hover {
+            background: rgba(255, 255, 255, 0.1);
+            transform: translateY(-5px);
+        }
+
+        .technique-card h4 {
+            color: #00ff41;
+            margin-bottom: 1rem;
+            font-size: 1.2rem;
+        }
+
+        /* Contact Section Enhanced */
+        .contact-content {
+            text-align: center;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin-top: 3rem;
+        }
+
+        .contact-card {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 2rem;
+            border-radius: 15px;
+            border: 1px solid rgba(0, 255, 65, 0.3);
+            transition: all 0.3s;
+            text-decoration: none;
+            color: white;
+        }
+
+        .contact-card:hover {
+            background: rgba(0, 255, 65, 0.1);
+            transform: translateY(-5px);
+            border-color: #00ff41;
+        }
+
+        .contact-card i {
+            font-size: 2.5rem;
+            color: #00ff41;
+            margin-bottom: 1rem;
+        }
+
+        /* Footer */
+        .footer {
+            background: linear-gradient(135deg, #0a0a0f, #1a1a2e);
+            padding: 4rem 0 2rem;
+            border-top: 2px solid #00ff41;
+            margin-top: 4rem;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 3rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-section h4 {
+            color: #00ff41;
+            margin-bottom: 1.5rem;
+            font-size: 1.3rem;
+        }
+
+        .footer-section p,
+        .footer-section li {
+            opacity: 0.8;
+            margin-bottom: 0.5rem;
+        }
+
+        .footer-section ul {
+            list-style: none;
+        }
+
+        .footer-section a {
+            color: #ffffff;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-section a:hover {
+            color: #00ff41;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .social-links a {
+            width: 40px;
+            height: 40px;
+            background: rgba(0, 255, 65, 0.1);
+            border: 1px solid #00ff41;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s;
+        }
+
+        .social-links a:hover {
+            background: #00ff41;
+            color: #000;
+            transform: translateY(-3px);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(0, 255, 65, 0.3);
+            opacity: 0.7;
+        }
+
+        .security-notice {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            padding: 1.5rem;
+            margin-top: 2rem;
+            border-left: 4px solid #00ff41;
+        }
+
+        /* Matrix Rain Effect */
+        .matrix-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -2;
+            opacity: 0.1;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .menu-toggle {
+                display: flex;
+            }
+
+            .nav-links {
+                display: none;
+                flex-direction: column;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background: rgba(10, 10, 15, 0.98);
+                padding: 2rem 0;
+                gap: 1rem;
+            }
+
+            .nav-links.active {
+                display: flex;
+            }
+
+            .hero-content h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero-content .subtitle {
+                font-size: 1.3rem;
+            }
+
+            .about-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+                gap: 2rem;
+            }
+
+            .profile-placeholder {
+                width: 200px;
+                height: 200px;
+            }
+
+            .profile-placeholder i {
+                font-size: 4rem;
+            }
+
+            .cta-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .section h2 {
+                font-size: 2rem;
+            }
+
+            .hof-grid,
+            .tools-categories,
+            .contact-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 0 15px;
+            }
+
+            .hero-content h1 {
+                font-size: 2rem;
+                letter-spacing: 1px;
+            }
+
+            .section {
+                padding: 4rem 0;
+            }
+
+            .hof-card,
+            .tool-category {
+                padding: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <canvas class="matrix-bg" id="matrix"></canvas>
+
+    <header>
+        <nav class="container">
+            <a href="#" class="logo">zeeshan.id</a>
+            <div class="menu-toggle" onclick="toggleMenu()">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#tools">Arsenal</a></li>
+                <li><a href="#hof">Hall of Fame</a></li>
+                <li><a href="#bounty">Bug Bounty</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section id="home" class="hero">
+        <div class="hero-content">
+            <h1>ZEESHAN</h1>
+            <div class="subtitle">Elite Cybersecurity Specialist</div>
+            <p class="typing-text">Android Pentester | API Security Expert | Bug Bounty Hunter</p>
+            <p>Securing digital infrastructures through advanced penetration testing and vulnerability research</p>
+            <div class="cta-buttons">
+                <a href="#hof" class="cta-button">View Achievements</a>
+                <a href="#contact" class="cta-button secondary">Get In Touch</a>
+            </div>
+        </div>
+    </section>
+
+    <section id="about" class="section">
+        <div class="container">
+            <h2>About the Expert</h2>
+            <div class="about-content">
+                <div class="profile-section">
+                    <div class="profile-placeholder">
+                        <i class="fas fa-mask"></i>
+                    </div>
+                    <div class="status-indicator">
+                        <i class="fas fa-shield-alt"></i> Active Security Researcher
+                    </div>
+                </div>
+                <div>
+                    <h3 style="color: #00ff41; font-size: 2.2rem; margin-bottom: 1.5rem;">Elite Cybersecurity Professional</h3>
+                    <p style="font-size: 1.15rem; margin-bottom: 1.5rem; opacity: 0.9;">
+                        Specialized cybersecurity expert with extensive experience in <strong>Android application penetration testing</strong> 
+                        and <strong>API security assessments</strong>. My expertise spans across web applications, mobile platforms, 
+                        and complex API infrastructures, helping organizations identify and remediate critical security vulnerabilities.
+                    </p>
+                    <p style="font-size: 1.15rem; margin-bottom: 1.5rem; opacity: 0.9;">
+                        Successfully identified critical vulnerabilities across major platforms including NASA, Air Canada, Rozee.pk, 
+                        and JazzCash. My approach combines advanced automated testing with deep manual analysis to uncover 
+                        complex attack vectors that automated tools often miss.
+                    </p>
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 1rem; margin-top: 2rem;">
+                        <div style="background: rgba(0, 255, 65, 0.1); padding: 1rem; border-radius: 10px; text-align: center; border: 1px solid rgba(0, 255, 65, 0.3);">
+                            <div style="font-size: 1.5rem; color: #00ff41; font-weight: bold;">50+</div>
+                            <div style="font-size: 0.9rem; opacity: 0.8;">Vulnerabilities Found</div>
+                        </div>
+                        <div style="background: rgba(0, 255, 65, 0.1); padding: 1rem; border-radius: 10px; text-align: center; border: 1px solid rgba(0, 255, 65, 0.3);">
+                            <div style="font-size: 1.5rem; color: #00ff41; font-weight: bold;">4+</div>
+                            <div style="font-size: 0.9rem; opacity: 0.8;">Hall of Fame</div>
+                        </div>
+                        <div style="background: rgba(0, 255, 65, 0.1); padding: 1rem; border-radius: 10px; text-align: center; border: 1px solid rgba(0, 255, 65, 0.3);">
+                            <div style="font-size: 1.5rem; color: #00ff41; font-weight: bold;">3+</div>
+                            <div style="font-size: 0.9rem; opacity: 0.8;">Years Experience</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="tools" class="section">
+        <div class="container">
+            <h2>Security Arsenal</h2>
+            <div class="tools-categories">
+                <div class="tool-category">
+                    <h3><i class="fas fa-laptop-code"></i> Web Application Testing</h3>
+                    <div class="tool-list">
+                        <div class="tool-item">
+                            <i class="fas fa-spider"></i><strong>Burp Suite Professional</strong> - Advanced web security testing
+                        </div>
+                        <div class="tool-item">
+                            <i class="fas fa-bug"></i><strong>OWASP ZAP</strong> - Open-source web security scanner
+                        </div>
+                        <div class="tool-item">
+                            <i class="fas fa-database"></i><strong>SQLMap</strong> - SQL injection detection and exploitation
+                        </div>
+                        <div class="tool-item">
+                            <i class="fas fa-rocket"></i><strong>Nuclei</strong> - Vulnerability scanner with templates
+                        </div>
+                        <div class="tool-item">
+                            <i class="fas fa-crosshairs"></i><strong>Dirb/Gobuster</strong> - Directory brute-forcing
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tool-category">
+                    <h3><i class="fas fa-mobile-alt"></i> Android Penetration Testing</h3>
+                    <div class="tool-list">
+                        <div class="tool-item">
+                            <i class="fab fa-android"></i><strong>MobSF</strong> - Mobile security framework
+                        </div>
+                        <div class="tool-item">
+                            <i class="fas fa-tools"></i><strong>Frida</strong> - Dynamic analysis and hooking
+                        </div>
+                        <div class="tool-item">
+                            <i class="fas fa-code"></i><strong>Jadx</strong> - Dex to Java decompiler
+                        </div>
+                        <div class="tool-item">
+                            <i class="fas fa-search"></i><strong>APKTool</strong> - APK reverse engineering
+                        </div>
+                        <div class="tool-item">
+                            <i class="fas fa-shield-alt"></i><strong>Objection</strong> - Runtime mobile exploration
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tool-category">
+                    <h3><i class="fas fa-exchange-alt"></i> API Security Testing</h3>
+                    <div class="tool-list">
+                        <div class="tool-item">
+                            <i class="fas fa-paper-plane"></i><strong>Postman</strong> - API testing and documentation
+                        </div>
+                        <div class="tool-item">
+                            <i class="fas fa-bolt"></i><strong>Insomnia</strong> - REST API client
+                        </div>
+                        <div class="tool-item">
+                            <i class="fas fa-code-branch"></i><strong>GraphQL Voyager</strong> - GraphQL exploration
+                        </div>
+                        <div class="tool-item">
+                            <i class="fas fa-key"></i><strong>JWT.io</strong> - JSON Web Token debugging
+                        </div>
+                        <div class="tool-item">
+                            <i class="fas fa-robot"></i><strong>Swagger/OpenAPI</strong> - API specification testing
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tool-category">
+                    <h3><i class="fas fa-network-wired"></i> Network & Infrastructure</h3>
+                    <div class="tool-list">
+                        <div class="tool-item">
+                            <i class="fas fa-terminal"></i><strong>Kali Linux</strong> - Penetration testing platform
+                        </div>
+                        <div class="tool-item">
+                            <i class="fas fa-search"></i><strong>Nmap</strong> - Network discovery and scanning
+                        </div>
+                        <div class="tool-item">
+                            <i class="fas fa-code"></i><strong>Metasploit</strong> - Exploitation framework
+                        </div>
+                        <div class="tool-item">
+                            <i class="fas fa-wifi"></i><strong>Wireshark</strong> - Network protocol analyzer
+                        </div>
+                        <div class="tool-item">
+                            <i class="fas fa-globe"></i><strong>Subfinder</strong> - Subdomain discovery
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="hof" class="section">
+        <div class="container">
+            <h2>Hall of Fame Achievements</h2>
+            <div class="hof-grid">
+                <div class="hof-card">
+                    <div class="severity-badge critical">Critical</div>
+                    <div class="hof-logo" style="background: #1e88e5; color: white;">R</div>
+                    <h3>Rozee.pk</h3>
+                    <p>Pakistan's leading job portal platform</p>
+                    <div class="vulnerability-details">
+                        <h5>Discovered Vulnerabilities:</h5>
+                        <ul>
+                            <li>Multiple Stored XSS vulnerabilities</li>
+                            <li>Account Takeover via XSS payload</li>
+                            <li>Session management flaws</li>
+                            <li>User data exposure risks</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="hof-card">
+                    <div class="severity-badge high">High</div>
+                    <div class="hof-logo" style="background: #c41e3a; color: white;">
+                        <i class="fas fa-plane"></i>
+                    </div>
+                    <h3>Air Canada</h3>
+                    <p>Major international airline corporation</p>
+                    <div class="vulnerability-details">
+                        <h5>Discovered Vulnerabilities:</h5>
+                        <ul>
+                            <li>Sensitive Data Exposure in API endpoints</li>
+                            <li>PII leakage through error messages</li>
+                            <li>Authentication bypass scenarios</li>
+                            <li>Customer data protection flaws</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="hof-card">
+                    <div class="severity-badge high">High</div>
+                    <div class="hof-logo" style="background: #ff6b35; color: white;">J</div>
+                    <h3>JazzCash</h3>
+                    <p>Pakistan's leading mobile financial services</p>
+                    <div class="vulnerability-details">
+                        <h5>Discovered Vulnerabilities:</h5>
+                        <ul>
+                            <li>Cross-Site Scripting (XSS)</li>
+                            <li>HTML Injection vulnerabilities</li>
+                            <li>Open Redirect vulnerabilities</li>
+                            <li>Sensitive Data Exposure</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="hof-card">
+                    <div class="severity-badge critical">Critical</div>
+                    <div class="hof-logo" style="background: #0b3d91; color: white;">
+                        <i class="fas fa-rocket"></i>
+                    </div>
+                    <h3>NASA</h3>
+                    <p>National Aeronautics and Space Administration</p>
+                    <div class="vulnerability-details">
+                        <h5>Discovered Vulnerabilities:</h5>
+                        <ul>
+                            <li>Open Redirect vulnerabilities</li>
+                            <li>Sensitive Data Exposure</li>
+                            <li>Information disclosure flaws</li>
+                            <li>Security misconfigurations</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="bounty" class="section">
+        <div class="container">
+            <h2>Bug Bounty Techniques & Methodologies</h2>
+            <div class="bounty-techniques">
+                <div class="technique-card">
+                    <h4><i class="fas fa-code"></i> XSS Discovery</h4>
+                    <p>Advanced techniques for finding stored, reflected, and DOM-based XSS vulnerabilities using custom payloads and bypass methods.</p>
+                </div>
+                <div class="technique-card">
+                    <h4><i class="fas fa-database"></i> SQL Injection</h4>
+                    <p>Manual and automated SQL injection testing including blind SQLi, time-based, and boolean-based techniques.</p>
+                </div>
+                <div class="technique-card">
+                    <h4><i class="fas fa-shield-alt"></i> Authentication Bypass</h4>
+                    <p>Testing authentication mechanisms for bypass vulnerabilities, session fixation, and privilege escalation.</p>
+                </div>
+                <div class="technique-card">
+                    <h4><i class="fas fa-eye"></i> Information Disclosure</h4>
+                    <p>Identifying sensitive data exposure through error messages, debug information, and misconfigured endpoints.</p>
+                </div>
+                <div class="technique-card">
+                    <h4><i class="fas fa-exchange-alt"></i> API Security</h4>
+                    <p>Comprehensive API testing including IDOR, rate limiting bypass, and authentication flaws.</p>
+                </div>
+                <div class="technique-card">
+                    <h4><i class="fas fa-mobile-alt"></i> Mobile App Security</h4>
+                    <p>Android application security testing including root detection bypass and runtime manipulation.</p>
+                </div>
+                <div class="technique-card">
+                    <h4><i class="fas fa-link"></i> Open Redirect</h4>
+                    <p>Finding and exploiting open redirect vulnerabilities that can lead to phishing and other attacks.</p>
+                </div>
+                <div class="technique-card">
+                    <h4><i class="fas fa-user-secret"></i> Business Logic</h4>
+                    <p>Identifying business logic flaws and application workflow vulnerabilities that bypass security controls.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" class="section">
+        <div class="container">
+            <h2>Secure Communication</h2>
+            <div class="contact-content">
+                <p style="font-size: 1.2rem; margin-bottom: 2rem; opacity: 0.9;">
+                    Ready to enhance your security posture? Let's discuss how advanced penetration testing can protect your digital assets.
+                </p>
+                <div class="contact-grid">
+                    <a href="mailto:zeeshan@zeeshan.id" class="contact-card">
+                        <i class="fas fa-envelope"></i>
+                        <h4>Email</h4>
+                        <p>Secure Communication</p>
+                    </a>
+                    <a href="https://wa.me/923444327310" class="contact-card">
+                        <i class="fab fa-whatsapp"></i>
+                        <h4>WhatsApp</h4>
+                        <p>Quick Response</p>
+                    </a>
+                    <a href="https://wa.me/923444327310" class="contact-card">
+                        <i class="fab fa-linkedin"></i>
+                        <h4>LinkedIn</h4>
+                        <p>Professional Network</p>
+                    </a>
+                    <a href="https://wa.me/923444327310" class="contact-card">
+                        <i class="fab fa-twitter"></i>
+                        <h4>Twitter</h4>
+                        <p>Security Updates</p>
+                    </a>
+                    <a href="https://t.me/RANA_1337" class="contact-card">
+                        <i class="fab fa-telegram"></i>
+                        <h4>Telegram</h4>
+                        <p>Encrypted Chat</p>
+                    </a>
+                    <a href="https://github.com/mzeeshan1337" class="contact-card">
+                        <i class="fab fa-github"></i>
+                        <h4>GitHub</h4>
+                        <p>Security Tools</p>
+                    </a>
+                </div>
+                <div class="security-notice">
+                    <h4 style="color: #00ff41; margin-bottom: 1rem;"><i class="fas fa-lock"></i> Security Notice</h4>
+                    <p>All communications are monitored for security purposes. For sensitive vulnerability reports, please use encrypted channels or PGP-encrypted email.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4><i class="fas fa-shield-alt"></i> zeeshan.id</h4>
+                    <p>Elite cybersecurity specialist providing advanced penetration testing, vulnerability assessment, and security consulting services.</p>
+                    <div class="social-links">
+                        <a href="https://wa.me/923444327310"><i class="fab fa-linkedin"></i></a>
+                        <a href="https://wa.me/923444327310"><i class="fab fa-twitter"></i></a>
+                        <a href="https://github.com/mzeeshan1337"><i class="fab fa-github"></i></a>
+                        <a href="https://wa.me/923444327310"><i class="fab fa-whatsapp"></i></a>
+                        <a href="https://t.me/RANA_1337"><i class="fab fa-telegram"></i></a>
+                    </div>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>Services</h4>
+                    <ul>
+                        <li><a href="#tools">Web Application Testing</a></li>
+                        <li><a href="#tools">Android Penetration Testing</a></li>
+                        <li><a href="#tools">API Security Assessment</a></li>
+                        <li><a href="#bounty">Bug Bounty Hunting</a></li>
+                        <li><a href="#contact">Security Consulting</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>Achievements</h4>
+                    <ul>
+                        <li><a href="#hof">NASA Hall of Fame</a></li>
+                        <li><a href="#hof">Air Canada Recognition</a></li>
+                        <li><a href="#hof">Rozee.pk Hall of Fame</a></li>
+                        <li><a href="#hof">JazzCash Acknowledgment</a></li>
+                        <li><a href="#bounty">50+ Vulnerabilities Found</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>Security Resources</h4>
+                    <ul>
+                        <li><a href="https://owasp.org">OWASP Top 10</a></li>
+                        <li><a href="https://cve.mitre.org">CVE Database</a></li>
+                        <li><a href="https://nvd.nist.gov">NVD Vulnerabilities</a></li>
+                        <li><a href="https://portswigger.net">PortSwigger Academy</a></li>
+                        <li><a href="https://hackerone.com">HackerOne Platform</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem;">
+                    <p>&copy; 2024 zeeshan.id | Elite Cybersecurity Services | All Rights Reserved</p>
+                    <div style="display: flex; gap: 2rem; font-size: 0.9rem;">
+                        <span><i class="fas fa-shield-alt"></i> Ethical Hacking</span>
+                        <span><i class="fas fa-lock"></i> Responsible Disclosure</span>
+                        <span><i class="fas fa-user-secret"></i> Anonymous Identity</span>
+                    </div>
+                </div>
+                <div style="margin-top: 1rem; padding-top: 1rem; border-top: 1px solid rgba(0, 255, 65, 0.2); text-align: center; font-size: 0.85rem; opacity: 0.7;">
+                    <p>⚠️ This website is for educational and professional purposes only. All security testing is conducted with proper authorization and follows responsible disclosure practices.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Matrix rain effect
+        const canvas = document.getElementById('matrix');
+        const ctx = canvas.getContext('2d');
+
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        const letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ123456789@#$%^&*()<>/[]{}';
+        const lettersArray = letters.split('');
+        const fontSize = 12;
+        const columns = canvas.width / fontSize;
+        const drops = [];
+
+        for (let i = 0; i < columns; i++) {
+            drops[i] = 1;
+        }
+
+        function draw() {
+            ctx.fillStyle = 'rgba(10, 10, 15, 0.05)';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            
+            ctx.fillStyle = '#00ff41';
+            ctx.font = fontSize + 'px monospace';
+            
+            for (let i = 0; i < drops.length; i++) {
+                const text = lettersArray[Math.floor(Math.random() * lettersArray.length)];
+                ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+                
+                if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
+                    drops[i] = 0;
+                }
+                drops[i]++;
+            }
+        }
+
+        setInterval(draw, 35);
+
+        // Mobile menu toggle
+        function toggleMenu() {
+            const navLinks = document.getElementById('navLinks');
+            navLinks.classList.toggle('active');
+        }
+
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+                // Close mobile menu if open
+                document.getElementById('navLinks').classList.remove('active');
+            });
+        });
+
+        // Enhanced typing animation
+        const typingText = document.querySelector('.typing-text');
+        const texts = [
+            'Android Pentester | API Security Expert | Bug Bounty Hunter',
+            'Ethical Hacker | Vulnerability Researcher | Security Consultant',
+            'Web App Pentester | Mobile Security Expert | Bug Hunter'
+        ];
+        let textIndex = 0;
+        let charIndex = 0;
+
+        function typeWriter() {
+            if (charIndex < texts[textIndex].length) {
+                typingText.textContent = texts[textIndex].slice(0, charIndex + 1);
+                charIndex++;
+                setTimeout(typeWriter, 50);
+            } else {
+                setTimeout(() => {
+                    charIndex = 0;
+                    textIndex = (textIndex + 1) % texts.length;
+                    typeWriter();
+                }, 3000);
+            }
+        }
+
+        setTimeout(typeWriter, 1000);
+
+        // Enhanced header scroll effect
+        window.addEventListener('scroll', () => {
+            const header = document.querySelector('header');
+            if (window.scrollY > 100) {
+                header.style.background = 'rgba(10, 10, 15, 0.98)';
+                header.style.boxShadow = '0 2px 30px rgba(0, 255, 65, 0.2)';
+            } else {
+                header.style.background = 'rgba(10, 10, 15, 0.95)';
+                header.style.boxShadow = '0 2px 20px rgba(0, 255, 65, 0.1)';
+            }
+        });
+
+        // Enhanced scroll animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.animation = 'fadeInUp 0.6s ease forwards';
+                }
+            });
+        }, observerOptions);
+
+        // Add enhanced CSS animations
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes fadeInUp {
+                from {
+                    opacity: 0;
+                    transform: translateY(30px);
+                }
+                to {
+                    opacity: 1;
+                    transform: translateY(0);
+                }
+            }
+            .tool-category, .hof-card, .technique-card, .contact-card {
+                opacity: 0;
+            }
+            .hero-content {
+                animation: fadeInUp 1s ease forwards;
+            }
+        `;
+        document.head.appendChild(style);
+
+        // Observe all animated elements
+        document.querySelectorAll('.tool-category, .hof-card, .technique-card, .contact-card').forEach(element => {
+            observer.observe(element);
+        });
+
+        // Resize canvas on window resize
+        window.addEventListener('resize', () => {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        });
+
+        // Add click effects to cards
+        document.querySelectorAll('.hof-card, .tool-category, .technique-card').forEach(card => {
+            card.addEventListener('click', function() {
+                this.style.transform = 'scale(0.98)';
+                setTimeout(() => {
+                    this.style.transform = '';
+                }, 150);
+            });
+        });
+
+        // Enhanced security notice animation
+        const securityNotice = document.querySelector('.security-notice');
+        if (securityNotice) {
+            setInterval(() => {
+                securityNotice.style.borderLeft = '4px solid #ff4757';
+                setTimeout(() => {
+                    securityNotice.style.borderLeft = '4px solid #00ff41';
+                }, 1000);
+            }, 5000);
+        }
+    </script>
+</body>
+</html>
