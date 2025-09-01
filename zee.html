@@ -288,7 +288,7 @@
             </div>
 
             <button id="send-btn" class="btn btn-success">
-                Send Transaction
+                Send Testnet ETH 🧪
             </button>
         </div>
 
@@ -329,11 +329,12 @@
         const networkNames = {
             1: 'Ethereum Mainnet',
             3: 'Ropsten Testnet',
-            4: 'Rinkeby Testnet',
+            4: 'Rinkeby Testnet', 
             5: 'Goerli Testnet',
             11155111: 'Sepolia Testnet',
             137: 'Polygon Mainnet',
-            80001: 'Polygon Mumbai Testnet'
+            80001: 'Polygon Mumbai Testnet',
+            1337: 'Localhost'
         };
 
         // Initialize MetaMask detection
@@ -513,20 +514,77 @@
             balance.textContent = balanceAmount.toFixed(6);
         }
 
-        // Check if current network is a testnet
-        function checkNetwork(network) {
-            const testnets = [3, 4, 5, 11155111, 80001]; // Common testnets
-            if (!testnets.includes(network) && network !== 1337) { // 1337 is local dev
-                if (network === 1 || network === 137) { // Mainnet warning
-                    networkWarning.style.display = 'block';
-                    networkWarning.innerHTML = '⚠️ <strong>Warning:</strong> You are connected to a mainnet. Please switch to a testnet to avoid spending real ETH.';
-                } else {
-                    networkWarning.style.display = 'none';
-                }
-            } else {
+        // Check if current network is a testnet and auto-switch if needed
+        async function checkNetwork(network) {
+            const testnets = [3, 4, 5, 11155111, 80001, 1337]; // Common testnets + local dev
+            const mainnetIds = [1, 137]; // Ethereum and Polygon mainnets
+            
+            if (mainnetIds.includes(network)) {
+                // Show warning but allow switching to testnet
+                networkWarning.style.display = 'block';
+                networkWarning.innerHTML = `
+                    ⚠️ <strong>Mainnet Detected:</strong> You're on ${networkNames[network]}. 
+                    <br><button onclick="switchToSepolia()" style="margin-top: 10px; padding: 8px 16px; background: #3498db; color: white; border: none; border-radius: 5px; cursor: pointer;">
+                        Switch to Sepolia Testnet
+                    </button>
+                `;
+            } else if (testnets.includes(network)) {
                 networkWarning.style.display = 'none';
+                updateDebug(`Connected to testnet: ${networkNames[network] || 'Unknown Testnet'}`);
+            } else {
+                // Unknown network - show info but allow usage
+                networkWarning.style.display = 'block';
+                networkWarning.innerHTML = `
+                    ℹ️ <strong>Unknown Network:</strong> Chain ID ${network}. Make sure this is a testnet.
+                    <br><button onclick="switchToSepolia()" style="margin-top: 10px; padding: 8px 16px; background: #3498db; color: white; border: none; border-radius: 5px; cursor: pointer;">
+                        Switch to Sepolia Testnet
+                    </button>
+                `;
             }
         }
+
+        // Switch to Sepolia testnet
+        async function switchToSepolia() {
+            try {
+                await ethereum.request({
+                    method: 'wallet_switchEthereumChain',
+                    params: [{ chainId: '0xaa36a7' }], // Sepolia testnet
+                });
+                updateDebug('Switched to Sepolia testnet');
+            } catch (switchError) {
+                // This error code indicates that the chain has not been added to MetaMask
+                if (switchError.code === 4902) {
+                    try {
+                        await ethereum.request({
+                            method: 'wallet_addEthereumChain',
+                            params: [
+                                {
+                                    chainId: '0xaa36a7',
+                                    chainName: 'Sepolia Testnet',
+                                    nativeCurrency: {
+                                        name: 'SepoliaETH',
+                                        symbol: 'SEP',
+                                        decimals: 18,
+                                    },
+                                    rpcUrls: ['https://rpc.sepolia.org/'],
+                                    blockExplorerUrls: ['https://sepolia.etherscan.io/'],
+                                },
+                            ],
+                        });
+                        updateDebug('Added and switched to Sepolia testnet');
+                    } catch (addError) {
+                        updateDebug('Failed to add Sepolia testnet: ' + addError.message);
+                        showError('Failed to add Sepolia testnet: ' + addError.message);
+                    }
+                } else {
+                    updateDebug('Failed to switch to Sepolia: ' + switchError.message);
+                    showError('Failed to switch to Sepolia: ' + switchError.message);
+                }
+            }
+        }
+
+        // Make switchToSepolia available globally
+        window.switchToSepolia = switchToSepolia;
 
         // Send transaction
         async function sendTransaction() {
@@ -535,6 +593,13 @@
 
             if (!ethereum) {
                 showError('MetaMask provider not found');
+                return;
+            }
+
+            // Check if we're on a testnet before allowing transaction
+            const testnets = [3, 4, 5, 11155111, 80001, 1337]; // Include localhost for dev
+            if (!testnets.includes(networkId)) {
+                showError('Please switch to a testnet before sending transactions. This tool is for testnet use only.');
                 return;
             }
 
@@ -554,12 +619,12 @@
                 sendBtn.disabled = true;
                 clearError();
                 clearTransactionResult();
-                updateDebug('Sending transaction...');
+                updateDebug(`Sending ${amount} testnet ETH to ${recipient.substring(0, 10)}...`);
 
                 // Convert amount to wei
                 const amountWei = '0x' + (amount * Math.pow(10, 18)).toString(16);
 
-                // Send transaction
+                // Send transaction on testnet
                 const txHash = await ethereum.request({
                     method: 'eth_sendTransaction',
                     params: [{
@@ -570,8 +635,8 @@
                     }]
                 });
 
-                updateDebug(`Transaction sent: ${txHash}`);
-                showTransactionResult(txHash);
+                updateDebug(`Testnet transaction sent: ${txHash}`);
+                showTransactionResult(txHash, networkId);
                 
                 // Clear form
                 recipientInput.value = '';
@@ -585,7 +650,7 @@
                 updateDebug('Transaction failed: ' + error.message);
                 showError('Transaction failed: ' + error.message);
             } finally {
-                sendBtn.innerHTML = 'Send Transaction';
+                sendBtn.innerHTML = 'Send Testnet ETH 🧪';
                 sendBtn.disabled = false;
             }
         }
@@ -609,14 +674,43 @@
         }
 
         // Show transaction result
-        function showTransactionResult(txHash) {
+        function showTransactionResult(txHash, networkId) {
+            let explorerUrl = 'https://etherscan.io';
+            let explorerName = 'Etherscan';
+            
+            // Set correct block explorer for testnet
+            switch(networkId) {
+                case 11155111: // Sepolia
+                    explorerUrl = 'https://sepolia.etherscan.io';
+                    explorerName = 'Sepolia Etherscan';
+                    break;
+                case 5: // Goerli
+                    explorerUrl = 'https://goerli.etherscan.io';
+                    explorerName = 'Goerli Etherscan';
+                    break;
+                case 80001: // Mumbai
+                    explorerUrl = 'https://mumbai.polygonscan.com';
+                    explorerName = 'Mumbai PolygonScan';
+                    break;
+                case 4: // Rinkeby
+                    explorerUrl = 'https://rinkeby.etherscan.io';
+                    explorerName = 'Rinkeby Etherscan';
+                    break;
+                case 3: // Ropsten
+                    explorerUrl = 'https://ropsten.etherscan.io';
+                    explorerName = 'Ropsten Etherscan';
+                    break;
+            }
+            
             transactionResult.innerHTML = `
                 <div class="transaction-hash">
-                    <p><strong>Transaction Sent Successfully! 🎉</strong></p>
-                    <p>Transaction Hash:</p>
+                    <p><strong>🎉 Testnet Transaction Sent Successfully!</strong></p>
+                    <p><strong>Network:</strong> ${networkNames[networkId] || 'Unknown Testnet'}</p>
+                    <p><strong>Transaction Hash:</strong></p>
                     <div class="hash">${txHash}</div>
                     <p style="margin-top: 10px; font-size: 11px;">
-                        You can view this transaction on <a href="https://etherscan.io/tx/${txHash}" target="_blank" style="color: #3498db;">Etherscan</a>
+                        View on <a href="${explorerUrl}/tx/${txHash}" target="_blank" style="color: #3498db;">${explorerName}</a>
+                        ${networkId === 1337 ? '<br><em>Note: Localhost transactions won\'t appear on block explorers</em>' : ''}
                     </p>
                 </div>
             `;
