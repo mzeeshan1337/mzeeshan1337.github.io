@@ -1,752 +1,229 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MetaMask Testnet Transaction Tool</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nova Cyber Force</title>
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500&family=Rajdhani:wght@600;700&display=swap');
+
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    body {
+        background: #0a0a0a;
+        font-family: 'Inter', sans-serif;
+        color: #e4e4e7;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        min-height: 100vh;
+        text-align: center;
+        padding: 20px;
+        position: relative;
+    }
+
+    body::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: 
+            radial-gradient(circle at 20% 30%, rgba(20, 20, 20, 0.8) 0%, transparent 50%),
+            radial-gradient(circle at 80% 70%, rgba(15, 15, 15, 0.8) 0%, transparent 50%);
+        pointer-events: none;
+    }
+
+    .logo {
+        margin-top: 40px;
+        position: relative;
+        z-index: 1;
+    }
+    
+    .logo img {
+        max-width: 180px;
+        width: 100%;
+        height: auto;
+        border-radius: 50%;
+        border: 3px solid #1a1a1a;
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.6);
+        transition: transform 0.4s ease, box-shadow 0.4s ease;
+    }
+    
+    .logo img:hover {
+        transform: scale(1.08);
+        box-shadow: 0 12px 40px rgba(0, 0, 0, 0.8);
+    }
+
+    .center {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        padding: 0 20px;
+        max-width: 900px;
+        position: relative;
+        z-index: 1;
+    }
+
+    h1 {
+        font-family: 'Rajdhani', sans-serif;
+        font-size: clamp(2.5em, 6vw, 4em);
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 8px;
+        color: #00ff41;
+        margin: 30px 0 0 0;
+        line-height: 1.2;
+    }
+
+    h2 {
+        font-family: 'Rajdhani', sans-serif;
+        font-size: clamp(1.3em, 4vw, 1.8em);
+        font-weight: 600;
+        color: #ff0000;
+        margin-top: 15px;
+        letter-spacing: 3px;
+        text-transform: uppercase;
+    }
+
+    .pakistan {
+        font-family: 'Rajdhani', sans-serif;
+        font-size: clamp(1.1em, 3vw, 1.4em);
+        font-weight: 600;
+        color: #00ff41;
+        margin-top: 15px;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+    }
+
+    .divider {
+        width: 100px;
+        height: 2px;
+        background: linear-gradient(90deg, transparent, #333333, transparent);
+        margin: 30px auto;
+    }
+
+    p {
+        font-family: 'Inter', sans-serif;
+        font-size: clamp(1em, 2.5vw, 1.15em);
+        max-width: 650px;
+        margin: 0 auto;
+        line-height: 1.8;
+        color: #ffffff;
+        font-weight: 400;
+    }
+
+    footer {
+        font-size: 0.95em;
+        color: #404040;
+        padding: 30px 0 20px 0;
+        position: relative;
+        z-index: 1;
+        border-top: 1px solid #1a1a1a;
+        width: 100%;
+        margin-top: 40px;
+    }
+
+    footer a {
+        color: #00ff41;
+        text-decoration: none;
+        transition: color 0.3s;
+    }
+
+    footer a:hover {
+        color: #00cc33;
+    }
+
+    /* WhatsApp Button Styles */
+    .whatsapp-button {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        background-color: #25D366;
+        color: white;
+        padding: 12px 24px;
+        border-radius: 8px;
+        text-decoration: none;
+        font-family: 'Inter', sans-serif;
+        font-weight: 500;
+        font-size: 1.1em;
+        margin: 25px 0 10px 0;
+        transition: all 0.3s ease;
+        box-shadow: 0 4px 12px rgba(37, 211, 102, 0.3);
+        position: relative;
+        z-index: 1;
+    }
+
+    .whatsapp-button:hover {
+        background-color: #128C7E;
+        transform: translateY(-2px);
+        box-shadow: 0 6px 16px rgba(37, 211, 102, 0.4);
+    }
+
+    .whatsapp-button:active {
+        transform: translateY(0);
+    }
+
+    .whatsapp-button i {
+        margin-right: 8px;
+        font-size: 1.2em;
+    }
+
+    @media (max-width: 768px) {
+        .logo {
+            margin-top: 30px;
+        }
+        
+        .logo img {
+            max-width: 140px;
         }
 
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 20px;
+        h1 {
+            letter-spacing: 4px;
         }
 
-        .container {
-            background: rgba(255, 255, 255, 0.95);
-            border-radius: 20px;
-            padding: 40px;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            max-width: 500px;
-            width: 100%;
+        h2 {
+            letter-spacing: 2px;
         }
-
-        .header {
-            text-align: center;
-            margin-bottom: 30px;
+        
+        .whatsapp-button {
+            padding: 10px 20px;
+            font-size: 1em;
         }
-
-        .header h1 {
-            color: #2c3e50;
-            font-size: 28px;
-            margin-bottom: 10px;
-            font-weight: 700;
-        }
-
-        .header p {
-            color: #7f8c8d;
-            font-size: 14px;
-        }
-
-        .status {
-            text-align: center;
-            padding: 15px;
-            border-radius: 10px;
-            margin-bottom: 20px;
-            font-weight: 600;
-            transition: all 0.3s ease;
-        }
-
-        .status.disconnected {
-            background: #ffe6e6;
-            color: #e74c3c;
-            border: 2px solid #e74c3c;
-        }
-
-        .status.connected {
-            background: #e8f5e8;
-            color: #27ae60;
-            border: 2px solid #27ae60;
-        }
-
-        .wallet-info {
-            background: #f8f9fa;
-            padding: 15px;
-            border-radius: 10px;
-            margin-bottom: 20px;
-            border-left: 4px solid #3498db;
-        }
-
-        .wallet-info p {
-            color: #2c3e50;
-            font-size: 12px;
-            margin: 5px 0;
-        }
-
-        .wallet-info .address {
-            font-family: monospace;
-            word-break: break-all;
-            background: #ecf0f1;
-            padding: 8px;
-            border-radius: 5px;
-            margin-top: 5px;
-        }
-
-        .form-group {
-            margin-bottom: 20px;
-        }
-
-        .form-group label {
-            display: block;
-            margin-bottom: 8px;
-            color: #2c3e50;
-            font-weight: 600;
-            font-size: 14px;
-        }
-
-        .form-group input {
-            width: 100%;
-            padding: 12px 15px;
-            border: 2px solid #ecf0f1;
-            border-radius: 10px;
-            font-size: 16px;
-            transition: border-color 0.3s ease;
-            background: #fff;
-        }
-
-        .form-group input:focus {
-            outline: none;
-            border-color: #3498db;
-            box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.1);
-        }
-
-        .btn {
-            width: 100%;
-            padding: 15px;
-            border: none;
-            border-radius: 10px;
-            font-size: 16px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            margin-bottom: 10px;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .btn:before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
-            transition: left 0.5s;
-        }
-
-        .btn:hover:before {
-            left: 100%;
-        }
-
-        .btn-primary {
-            background: linear-gradient(135deg, #3498db, #2980b9);
-            color: white;
-        }
-
-        .btn-primary:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 20px rgba(52, 152, 219, 0.3);
-        }
-
-        .btn-success {
-            background: linear-gradient(135deg, #27ae60, #2ecc71);
-            color: white;
-        }
-
-        .btn-success:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 20px rgba(39, 174, 96, 0.3);
-        }
-
-        .btn:disabled {
-            opacity: 0.6;
-            cursor: not-allowed;
-            transform: none;
-            box-shadow: none;
-        }
-
-        .loading {
-            display: inline-block;
-            width: 20px;
-            height: 20px;
-            border: 3px solid rgba(255,255,255,.3);
-            border-radius: 50%;
-            border-top-color: #fff;
-            animation: spin 1s ease-in-out infinite;
-        }
-
-        @keyframes spin {
-            to { transform: rotate(360deg); }
-        }
-
-        .transaction-hash {
-            background: #e8f5e8;
-            padding: 15px;
-            border-radius: 10px;
-            margin-top: 20px;
-            border-left: 4px solid #27ae60;
-        }
-
-        .transaction-hash p {
-            color: #2c3e50;
-            font-size: 12px;
-            margin-bottom: 5px;
-        }
-
-        .transaction-hash .hash {
-            font-family: monospace;
-            word-break: break-all;
-            background: #d5eddb;
-            padding: 8px;
-            border-radius: 5px;
-            font-size: 12px;
-        }
-
-        .error {
-            background: #ffe6e6;
-            color: #e74c3c;
-            padding: 15px;
-            border-radius: 10px;
-            margin-top: 20px;
-            border-left: 4px solid #e74c3c;
-            font-size: 14px;
-        }
-
-        .network-warning {
-            background: #fff3cd;
-            color: #856404;
-            padding: 15px;
-            border-radius: 10px;
-            margin-bottom: 20px;
-            border-left: 4px solid #ffc107;
-            font-size: 14px;
-        }
-
-        .debug-info {
-            background: #e3f2fd;
-            padding: 10px;
-            border-radius: 5px;
-            margin-bottom: 20px;
-            font-size: 12px;
-            color: #1976d2;
-            border-left: 4px solid #2196f3;
-        }
-    </style>
+    }
+</style>
 </head>
 <body>
-    <div class="container">
-        <div class="header">
-            <h1>🦊 Testnet Transaction Tool</h1>
-            <p>Send ETH transactions on Ethereum testnets</p>
-        </div>
 
-        <div id="debug-info" class="debug-info">
-            <strong>Debug Info:</strong><br>
-            <span id="debug-text">Checking for MetaMask...</span>
-        </div>
+<div class="logo">
+    <a href="#">
+        <img src="https://www.upload.ee/image/18718201/zeeshan1337.jpg" alt="ZEESHAN1337">
+    </a>
+</div>
 
-        <div id="status" class="status disconnected">
-            MetaMask not connected
-        </div>
+<div class="center">
+    <h1>ZEESHAN1337 IS HERE</h1>
+    <h2>YOU ARE HACKED</h2>
+    <div class="pakistan">Pakistan Zindabad</div>
+    <div class="divider"></div>
+    <p>We are the shadows in the network, the guardians of truth, and the seekers of justice. No system is too secure, no wall too high</p>
+    
+    <!-- WhatsApp Channel Button -->
+    <a href="https://whatsapp.com/channel/0029VaHBuQZHwXbFiEnnOs46" class="whatsapp-button" target="_blank">
+        Join Our WhatsApp Channel
+    </a>
+</div>
 
-        <div id="wallet-info" class="wallet-info" style="display: none;">
-            <p><strong>Connected Account:</strong></p>
-            <div id="account-address" class="address"></div>
-            <p><strong>Network:</strong> <span id="network-name"></span> (Chain ID: <span id="chain-id"></span>)</p>
-            <p><strong>Balance:</strong> <span id="balance"></span> ETH</p>
-        </div>
+<footer>
+    <div style="margin-bottom: 10px; color: #606060;">Contact: <a href="mailto:r00tz3e@proton.me">r00tz3e@proton.me</a></div>
+    <div>© 2025 Pakistani Hackers - All Rights Reserved</div>
+</footer>
 
-        <div id="network-warning" class="network-warning" style="display: none;">
-            ⚠️ Please switch to a testnet (Sepolia, Goerli, etc.) to use this tool safely.
-        </div>
-
-        <button id="connect-btn" class="btn btn-primary">
-            Connect MetaMask
-        </button>
-
-        <div id="transaction-form" style="display: none;">
-            <div class="form-group">
-                <label for="recipient">Recipient Address</label>
-                <input type="text" id="recipient" placeholder="0x..." />
-            </div>
-
-            <div class="form-group">
-                <label for="amount">Amount (ETH)</label>
-                <input type="number" id="amount" placeholder="0.001" step="0.000001" />
-            </div>
-
-            <button id="send-btn" class="btn btn-success">
-                Send Testnet ETH 🧪
-            </button>
-        </div>
-
-        <div id="transaction-result"></div>
-        <div id="error-message"></div>
-    </div>
-
-    <script>
-        let web3;
-        let userAccount;
-        let networkId;
-        let ethereum;
-
-        // DOM elements
-        const connectBtn = document.getElementById('connect-btn');
-        const sendBtn = document.getElementById('send-btn');
-        const status = document.getElementById('status');
-        const walletInfo = document.getElementById('wallet-info');
-        const transactionForm = document.getElementById('transaction-form');
-        const accountAddress = document.getElementById('account-address');
-        const networkName = document.getElementById('network-name');
-        const chainId = document.getElementById('chain-id');
-        const balance = document.getElementById('balance');
-        const recipientInput = document.getElementById('recipient');
-        const amountInput = document.getElementById('amount');
-        const transactionResult = document.getElementById('transaction-result');
-        const errorMessage = document.getElementById('error-message');
-        const networkWarning = document.getElementById('network-warning');
-        const debugText = document.getElementById('debug-text');
-
-        // Debug function
-        function updateDebug(message) {
-            debugText.textContent = message;
-            console.log('Debug:', message);
-        }
-
-        // Network names mapping
-        const networkNames = {
-            1: 'Ethereum Mainnet',
-            3: 'Ropsten Testnet',
-            4: 'Rinkeby Testnet', 
-            5: 'Goerli Testnet',
-            11155111: 'Sepolia Testnet',
-            137: 'Polygon Mainnet',
-            80001: 'Polygon Mumbai Testnet',
-            1337: 'Localhost'
-        };
-
-        // Initialize MetaMask detection
-        function initializeMetaMask() {
-            updateDebug('Initializing MetaMask detection...');
-            
-            // Check for ethereum object
-            if (typeof window.ethereum !== 'undefined') {
-                updateDebug('window.ethereum found');
-                ethereum = window.ethereum;
-                
-                // Check if it's MetaMask
-                if (ethereum.isMetaMask) {
-                    updateDebug('MetaMask detected directly');
-                    setupConnectButton();
-                    return;
-                }
-                
-                // Check for multiple providers
-                if (ethereum.providers && Array.isArray(ethereum.providers)) {
-                    updateDebug(`Found ${ethereum.providers.length} providers`);
-                    const metamaskProvider = ethereum.providers.find(provider => provider.isMetaMask);
-                    if (metamaskProvider) {
-                        updateDebug('MetaMask found in providers array');
-                        ethereum = metamaskProvider;
-                        setupConnectButton();
-                        return;
-                    }
-                }
-            }
-            
-            updateDebug('MetaMask not detected. Please install MetaMask extension.');
-            showError('MetaMask not detected. Please install MetaMask extension and refresh the page.');
-        }
-
-        // Setup connect button when MetaMask is available
-        function setupConnectButton() {
-            updateDebug('MetaMask ready. You can now connect.');
-            connectBtn.disabled = false;
-            
-            // Check if already connected
-            checkExistingConnection();
-        }
-
-        // Check if already connected
-        async function checkExistingConnection() {
-            try {
-                const accounts = await ethereum.request({ method: 'eth_accounts' });
-                if (accounts.length > 0) {
-                    updateDebug('Found existing connection');
-                    connectMetaMask();
-                } else {
-                    updateDebug('No existing connection found');
-                }
-            } catch (error) {
-                updateDebug('Error checking existing connection: ' + error.message);
-            }
-        }
-
-        // Connect to MetaMask
-        async function connectMetaMask() {
-            if (!ethereum) {
-                showError('MetaMask not found. Please install MetaMask extension.');
-                return;
-            }
-
-            try {
-                connectBtn.innerHTML = '<span class="loading"></span> Connecting...';
-                connectBtn.disabled = true;
-                updateDebug('Requesting account access...');
-
-                // Request account access
-                const accounts = await ethereum.request({
-                    method: 'eth_requestAccounts'
-                });
-
-                if (accounts.length === 0) {
-                    throw new Error('No accounts returned from MetaMask');
-                }
-
-                userAccount = accounts[0];
-                updateDebug(`Connected to account: ${userAccount.substring(0, 10)}...`);
-                
-                // Get network information
-                const chainIdHex = await ethereum.request({
-                    method: 'eth_chainId'
-                });
-                networkId = parseInt(chainIdHex, 16);
-                updateDebug(`Connected to network: ${networkId}`);
-
-                // Get balance
-                const balanceWei = await ethereum.request({
-                    method: 'eth_getBalance',
-                    params: [userAccount, 'latest']
-                });
-                const balanceEth = parseInt(balanceWei, 16) / Math.pow(10, 18);
-                updateDebug(`Account balance: ${balanceEth.toFixed(6)} ETH`);
-
-                // Update UI
-                updateConnectionStatus(true);
-                updateWalletInfo(userAccount, networkId, balanceEth);
-                
-                // Check if it's a testnet
-                checkNetwork(networkId);
-
-                // Setup event listeners
-                setupEventListeners();
-
-                clearError();
-                updateDebug('Successfully connected to MetaMask');
-            } catch (error) {
-                console.error('Failed to connect to MetaMask:', error);
-                updateDebug('Connection failed: ' + error.message);
-                showError('Failed to connect to MetaMask: ' + error.message);
-                connectBtn.innerHTML = 'Connect MetaMask';
-                connectBtn.disabled = false;
-            }
-        }
-
-        // Setup event listeners
-        function setupEventListeners() {
-            if (!ethereum) return;
-
-            // Remove existing listeners to avoid duplicates
-            if (ethereum.removeAllListeners) {
-                ethereum.removeAllListeners('accountsChanged');
-                ethereum.removeAllListeners('chainChanged');
-            }
-
-            ethereum.on('accountsChanged', (accounts) => {
-                updateDebug('Account changed');
-                if (accounts.length === 0) {
-                    updateConnectionStatus(false);
-                    updateDebug('Account disconnected');
-                } else {
-                    userAccount = accounts[0];
-                    accountAddress.textContent = userAccount;
-                    updateBalance();
-                    updateDebug(`Switched to account: ${userAccount.substring(0, 10)}...`);
-                }
-            });
-
-            ethereum.on('chainChanged', (chainIdHex) => {
-                networkId = parseInt(chainIdHex, 16);
-                chainId.textContent = networkId;
-                networkName.textContent = networkNames[networkId] || 'Unknown Network';
-                checkNetwork(networkId);
-                updateBalance();
-                updateDebug(`Network changed to: ${networkId}`);
-            });
-        }
-
-        // Update connection status
-        function updateConnectionStatus(connected) {
-            if (connected) {
-                status.textContent = 'MetaMask Connected ✅';
-                status.className = 'status connected';
-                connectBtn.style.display = 'none';
-                transactionForm.style.display = 'block';
-                walletInfo.style.display = 'block';
-            } else {
-                status.textContent = 'MetaMask not connected';
-                status.className = 'status disconnected';
-                connectBtn.style.display = 'block';
-                connectBtn.innerHTML = 'Connect MetaMask';
-                connectBtn.disabled = false;
-                transactionForm.style.display = 'none';
-                walletInfo.style.display = 'none';
-            }
-        }
-
-        // Update wallet information
-        function updateWalletInfo(account, network, balanceAmount) {
-            accountAddress.textContent = account;
-            chainId.textContent = network;
-            networkName.textContent = networkNames[network] || 'Unknown Network';
-            balance.textContent = balanceAmount.toFixed(6);
-        }
-
-        // Check if current network is a testnet and auto-switch if needed
-        async function checkNetwork(network) {
-            const testnets = [3, 4, 5, 11155111, 80001, 1337]; // Common testnets + local dev
-            const mainnetIds = [1, 137]; // Ethereum and Polygon mainnets
-            
-            if (mainnetIds.includes(network)) {
-                // Show warning but allow switching to testnet
-                networkWarning.style.display = 'block';
-                networkWarning.innerHTML = `
-                    ⚠️ <strong>Mainnet Detected:</strong> You're on ${networkNames[network]}. 
-                    <br><button onclick="switchToSepolia()" style="margin-top: 10px; padding: 8px 16px; background: #3498db; color: white; border: none; border-radius: 5px; cursor: pointer;">
-                        Switch to Sepolia Testnet
-                    </button>
-                `;
-            } else if (testnets.includes(network)) {
-                networkWarning.style.display = 'none';
-                updateDebug(`Connected to testnet: ${networkNames[network] || 'Unknown Testnet'}`);
-            } else {
-                // Unknown network - show info but allow usage
-                networkWarning.style.display = 'block';
-                networkWarning.innerHTML = `
-                    ℹ️ <strong>Unknown Network:</strong> Chain ID ${network}. Make sure this is a testnet.
-                    <br><button onclick="switchToSepolia()" style="margin-top: 10px; padding: 8px 16px; background: #3498db; color: white; border: none; border-radius: 5px; cursor: pointer;">
-                        Switch to Sepolia Testnet
-                    </button>
-                `;
-            }
-        }
-
-        // Switch to Sepolia testnet
-        async function switchToSepolia() {
-            try {
-                await ethereum.request({
-                    method: 'wallet_switchEthereumChain',
-                    params: [{ chainId: '0xaa36a7' }], // Sepolia testnet
-                });
-                updateDebug('Switched to Sepolia testnet');
-            } catch (switchError) {
-                // This error code indicates that the chain has not been added to MetaMask
-                if (switchError.code === 4902) {
-                    try {
-                        await ethereum.request({
-                            method: 'wallet_addEthereumChain',
-                            params: [
-                                {
-                                    chainId: '0xaa36a7',
-                                    chainName: 'Sepolia Testnet',
-                                    nativeCurrency: {
-                                        name: 'SepoliaETH',
-                                        symbol: 'SEP',
-                                        decimals: 18,
-                                    },
-                                    rpcUrls: ['https://rpc.sepolia.org/'],
-                                    blockExplorerUrls: ['https://sepolia.etherscan.io/'],
-                                },
-                            ],
-                        });
-                        updateDebug('Added and switched to Sepolia testnet');
-                    } catch (addError) {
-                        updateDebug('Failed to add Sepolia testnet: ' + addError.message);
-                        showError('Failed to add Sepolia testnet: ' + addError.message);
-                    }
-                } else {
-                    updateDebug('Failed to switch to Sepolia: ' + switchError.message);
-                    showError('Failed to switch to Sepolia: ' + switchError.message);
-                }
-            }
-        }
-
-        // Make switchToSepolia available globally
-        window.switchToSepolia = switchToSepolia;
-
-        // Send transaction
-        async function sendTransaction() {
-            const recipient = recipientInput.value.trim();
-            const amount = parseFloat(amountInput.value);
-
-            if (!ethereum) {
-                showError('MetaMask provider not found');
-                return;
-            }
-
-            // Check if we're on a testnet before allowing transaction
-            const testnets = [3, 4, 5, 11155111, 80001, 1337]; // Include localhost for dev
-            if (!testnets.includes(networkId)) {
-                showError('Please switch to a testnet before sending transactions. This tool is for testnet use only.');
-                return;
-            }
-
-            // Validation
-            if (!recipient || !recipient.match(/^0x[a-fA-F0-9]{40}$/)) {
-                showError('Please enter a valid Ethereum address');
-                return;
-            }
-
-            if (!amount || amount <= 0) {
-                showError('Please enter a valid amount');
-                return;
-            }
-
-            try {
-                sendBtn.innerHTML = '<span class="loading"></span> Sending...';
-                sendBtn.disabled = true;
-                clearError();
-                clearTransactionResult();
-                updateDebug(`Sending ${amount} testnet ETH to ${recipient.substring(0, 10)}...`);
-
-                // Convert amount to wei
-                const amountWei = '0x' + (amount * Math.pow(10, 18)).toString(16);
-
-                // Send transaction on testnet
-                const txHash = await ethereum.request({
-                    method: 'eth_sendTransaction',
-                    params: [{
-                        from: userAccount,
-                        to: recipient,
-                        value: amountWei,
-                        gas: '0x5208', // 21000 gas for simple transfer
-                    }]
-                });
-
-                updateDebug(`Testnet transaction sent: ${txHash}`);
-                showTransactionResult(txHash, networkId);
-                
-                // Clear form
-                recipientInput.value = '';
-                amountInput.value = '';
-
-                // Update balance after a delay
-                setTimeout(updateBalance, 2000);
-
-            } catch (error) {
-                console.error('Transaction failed:', error);
-                updateDebug('Transaction failed: ' + error.message);
-                showError('Transaction failed: ' + error.message);
-            } finally {
-                sendBtn.innerHTML = 'Send Testnet ETH 🧪';
-                sendBtn.disabled = false;
-            }
-        }
-
-        // Update balance
-        async function updateBalance() {
-            try {
-                if (!ethereum) return;
-
-                const balanceWei = await ethereum.request({
-                    method: 'eth_getBalance',
-                    params: [userAccount, 'latest']
-                });
-                const balanceEth = parseInt(balanceWei, 16) / Math.pow(10, 18);
-                balance.textContent = balanceEth.toFixed(6);
-                updateDebug(`Balance updated: ${balanceEth.toFixed(6)} ETH`);
-            } catch (error) {
-                console.error('Failed to update balance:', error);
-                updateDebug('Failed to update balance: ' + error.message);
-            }
-        }
-
-        // Show transaction result
-        function showTransactionResult(txHash, networkId) {
-            let explorerUrl = 'https://etherscan.io';
-            let explorerName = 'Etherscan';
-            
-            // Set correct block explorer for testnet
-            switch(networkId) {
-                case 11155111: // Sepolia
-                    explorerUrl = 'https://sepolia.etherscan.io';
-                    explorerName = 'Sepolia Etherscan';
-                    break;
-                case 5: // Goerli
-                    explorerUrl = 'https://goerli.etherscan.io';
-                    explorerName = 'Goerli Etherscan';
-                    break;
-                case 80001: // Mumbai
-                    explorerUrl = 'https://mumbai.polygonscan.com';
-                    explorerName = 'Mumbai PolygonScan';
-                    break;
-                case 4: // Rinkeby
-                    explorerUrl = 'https://rinkeby.etherscan.io';
-                    explorerName = 'Rinkeby Etherscan';
-                    break;
-                case 3: // Ropsten
-                    explorerUrl = 'https://ropsten.etherscan.io';
-                    explorerName = 'Ropsten Etherscan';
-                    break;
-            }
-            
-            transactionResult.innerHTML = `
-                <div class="transaction-hash">
-                    <p><strong>🎉 Testnet Transaction Sent Successfully!</strong></p>
-                    <p><strong>Network:</strong> ${networkNames[networkId] || 'Unknown Testnet'}</p>
-                    <p><strong>Transaction Hash:</strong></p>
-                    <div class="hash">${txHash}</div>
-                    <p style="margin-top: 10px; font-size: 11px;">
-                        View on <a href="${explorerUrl}/tx/${txHash}" target="_blank" style="color: #3498db;">${explorerName}</a>
-                        ${networkId === 1337 ? '<br><em>Note: Localhost transactions won\'t appear on block explorers</em>' : ''}
-                    </p>
-                </div>
-            `;
-        }
-
-        // Clear transaction result
-        function clearTransactionResult() {
-            transactionResult.innerHTML = '';
-        }
-
-        // Show error message
-        function showError(message) {
-            errorMessage.innerHTML = `<div class="error">${message}</div>`;
-        }
-
-        // Clear error message
-        function clearError() {
-            errorMessage.innerHTML = '';
-        }
-
-        // Event listeners
-        connectBtn.addEventListener('click', connectMetaMask);
-        sendBtn.addEventListener('click', sendTransaction);
-
-        // Initialize when page loads
-        window.addEventListener('load', () => {
-            updateDebug('Page loaded, initializing...');
-            // Small delay to ensure all extensions are loaded
-            setTimeout(initializeMetaMask, 500);
-        });
-
-        // Fallback initialization if load event already fired
-        if (document.readyState === 'complete') {
-            updateDebug('Page already loaded, initializing...');
-            setTimeout(initializeMetaMask, 500);
-        }
-    </script>
 </body>
 </html>
